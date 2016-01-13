@@ -400,6 +400,18 @@ NativeWindowMac::NativeWindowMac(
   if ((titleBarStyle == "hidden") || (titleBarStyle == "hidden-inset")) {
     [window_ setTitlebarAppearsTransparent:YES];
     [window_ setTitleVisibility:NSWindowTitleHidden];
+    // Hide the close button
+    NSButton * closeButton = [[self window] standardWindowButton:NSWindowCloseButton];
+    closeButton.hidden = true;
+      
+    // Hide the minimize button
+    NSButton * minimizeButton = [[self window] standardWindowButton:NSWindowMiniaturizeButton];
+    minimizeButton.hidden = true;
+      
+    // Hide the zoom button
+    NSButton * maximizeButton = [[self window] standardWindowButton:NSWindowZoomButton];
+    maximizeButton.hidden = true;
+    
     if (titleBarStyle == "hidden-inset") {
       base::scoped_nsobject<NSToolbar> toolbar(
           [[NSToolbar alloc] initWithIdentifier:@"titlebarStylingToolbar"]);
